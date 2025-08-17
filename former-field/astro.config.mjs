@@ -9,6 +9,7 @@ import rehypeKatex from 'rehype-katex';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://bjmcd.dev',
   //Markdown and MDX content
   markdown: {
     remarkPlugins: [remarkMath],
