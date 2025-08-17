@@ -10,8 +10,16 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^6.3.6",
     "@astrojs/starlight": "^0.35.2",
+    "@tailwindcss/vite": "^4.1.12",
     "astro": "^5.6.1",
-    "sharp": "^0.34.2"
+    "sharp": "^0.34.2",
+    "tailwindcss": "^4.1.12"
+  },
+  "devDependencies": {
+    "katex": "^0.16.22",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   }
 }
