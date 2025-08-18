@@ -32,6 +32,10 @@ export default defineConfig({
                   label: 'Ansi C',
                   autogenerate: { directory: 'reference' },
               },
+			  {
+                  label: 'Differential Calculus through Data and Modeling Specialization',
+                  autogenerate: { directory: 'reference' },
+              },
           ],
           // NEW: load KaTeX CSS (can point to a local file or an npm module path)
           customCss: ['katex/dist/katex.min.css'], // Starlight supports this. :contentReference[oaicite:1]{index=1}
