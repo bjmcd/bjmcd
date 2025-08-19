@@ -3,21 +3,27 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
+    "dev": "astro dev",                  
+    "dev:jhu": "astro dev --root apps/jhu",
+    "dev:swe": "astro dev --root apps/swe",
+    "build:root": "astro build",           
+    "build:jhu": "astro build --root apps/jhu",
+    "assemble": "rm -rf dist/docs/jhu && mkdir -p dist/docs/jhu && cp -R apps/jhu/dist/* dist/docs/jhu/",
+    "build:all": "npm run build:root && npm run build:jhu && npm run assemble",
+    "build:swe": "astro build --root apps/swe",
     "preview": "astro preview",
-    "astro": "astro"
+    "preview:jhu": "astro preview --root apps/jhu",
+    "preview:swe": "astro preview --root apps/swe"
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^6.3.6",
-    "@astrojs/starlight": "^0.35.2",
-    "@tailwindcss/vite": "^4.1.12",
-    "astro": "^5.6.1",
     "sharp": "^0.34.2",
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
+    "@astrojs/starlight": "^0.35.2",
+    "@tailwindcss/vite": "^4.1.12",
+    "astro": "^5.13.2",
     "katex": "^0.16.22",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0"

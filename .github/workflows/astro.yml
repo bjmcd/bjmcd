@@ -1,32 +1,21 @@
-# Sample workflow for building and deploying an Astro site to GitHub Pages
-#
-# To get started with Astro see: https://docs.astro.build/en/getting-started/
-#
 name: Deploy Astro site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 env:
-  BUILD_PATH: "." # default value when not using subfolders
-  # BUILD_PATH: subfolder
+  BUILD_PATH: "." # root app
 
 jobs:
   build:
@@ -35,6 +24,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -54,36 +44,68 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-          cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
+          cache-dependency-path: |
+            ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-      - name: Install dependencies
+
+      - name: Install dependencies (root)
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Build with Astro
+
+      # --- Build the root site (homepage + /docs landing) ---
+      - name: Build root site
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
             --site "${{ steps.pages.outputs.origin }}" \
             --base "${{ steps.pages.outputs.base_path }}"
         working-directory: ${{ env.BUILD_PATH }}
+
+      # --- Build JHU sub-app ---
+      - name: Build JHU space
+        run: ${{ steps.detect-package-manager.outputs.runner }} astro build --root apps/jhu
+
+      # --- Build SWE sub-app (remove if you don't have it yet) ---
+      #- name: Build SWE space
+      #  run: ${{ steps.detect-package-manager.outputs.runner }} astro build --root apps/swe
+
+      # --- Assemble sub-app outputs into the root dist/ bundle ---
+      - name: Assemble docs spaces into dist/
+        shell: bash
+        run: |
+          set -e
+          mkdir -p dist/docs/jhu dist/docs/swe
+          if [ -d "apps/jhu/dist" ]; then
+            cp -R apps/jhu/dist/* dist/docs/jhu/
+          else
+            echo "WARN: apps/jhu/dist not found"
+          fi
+          if [ -d "apps/swe/dist" ]; then
+            cp -R apps/swe/dist/* dist/docs/swe/
+          else
+            echo "WARN: apps/swe/dist not found"
+          fi
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ env.BUILD_PATH }}/dist
 
   deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    runs-on: ubuntu-latest
-    name: Deploy
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
