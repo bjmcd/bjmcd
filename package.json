@@ -7,15 +7,13 @@
 
     "dev:jhu": "astro dev --root apps/jhu",
     "build:jhu": "astro build --root apps/jhu",
-    "assemble:jhu": "rm -rf dist/docs/jhu && mkdir -p dist/docs/jhu && cp -R apps/jhu/dist/* dist/docs/jhu/",
 
     "dev:swe": "astro dev --root apps/swe",
     "build:swe": "astro build --root apps/swe",
-    "assemble:swe": "rm -rf dist/docs/swe && mkdir -p dist/docs/swe && cp -R apps/swe/dist/* dist/docs/swe/",
 
     "build:root": "astro build",
 
-    "assemble": "npm run assemble:jhu && npm run assemble:swe",
+    "assemble": "node scripts/assemble-docs.mjs",
     "build:all": "npm run build:root && npm run build:jhu && npm run build:swe && npm run assemble",
 
     "preview": "astro preview",
