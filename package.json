@@ -3,14 +3,21 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",                  
+    "dev": "astro dev",
+
     "dev:jhu": "astro dev --root apps/jhu",
-    "dev:swe": "astro dev --root apps/swe",
-    "build:root": "astro build",           
     "build:jhu": "astro build --root apps/jhu",
-    "assemble": "rm -rf dist/docs/jhu && mkdir -p dist/docs/jhu && cp -R apps/jhu/dist/* dist/docs/jhu/",
-    "build:all": "npm run build:root && npm run build:jhu && npm run assemble",
+    "assemble:jhu": "rm -rf dist/docs/jhu && mkdir -p dist/docs/jhu && cp -R apps/jhu/dist/* dist/docs/jhu/",
+
+    "dev:swe": "astro dev --root apps/swe",
     "build:swe": "astro build --root apps/swe",
+    "assemble:swe": "rm -rf dist/docs/swe && mkdir -p dist/docs/swe && cp -R apps/swe/dist/* dist/docs/swe/",
+
+    "build:root": "astro build",
+
+    "assemble": "npm run assemble:jhu && npm run assemble:swe",
+    "build:all": "npm run build:root && npm run build:jhu && npm run build:swe && npm run assemble",
+
     "preview": "astro preview",
     "preview:jhu": "astro preview --root apps/jhu",
     "preview:swe": "astro preview --root apps/swe"
