@@ -74,8 +74,8 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.runner }} astro build --root apps/jhu
 
       # --- Build SWE sub-app (remove if you don't have it yet) ---
-      #- name: Build SWE space
-      #  run: ${{ steps.detect-package-manager.outputs.runner }} astro build --root apps/swe
+      - name: Build SWE space
+        run: ${{ steps.detect-package-manager.outputs.runner }} astro build --root apps/swe
 
       # --- Assemble sub-app outputs into the root dist/ bundle ---
       - name: Assemble docs spaces into dist/
