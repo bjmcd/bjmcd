@@ -51,9 +51,19 @@ export default defineConfig({
 
       sidebar: [
         {
-          label: 'Guides',
-          collapsed: false,
-          autogenerate: { directory: 'guides' }, // apps/jhu/src/content/docs/guides/**
+          label: 'Differential Calculus',
+          collapsed: false, // apps/jhu/src/content/docs/guides/**
+          items: [
+            { label: 'Precalculus',  autogenerate: { directory: 'diffcalc/precalc',   collapsed: true } },
+            { label: 'Limits & Derivatives', autogenerate: { directory: 'diffcalc/limitsder', collapsed: true } },
+            { label: 'Differentiation Rules', autogenerate: { directory: 'diffcalc/diffrules', collapsed: true } },
+            { label: 'Applying Differentiation', autogenerate: { directory: 'diffcalc/applydiff', collapsed: true } },
+          ], 
+        },
+        {
+          label: 'Probability & Statistics',
+          collapsed: true, // apps/jhu/src/content/docs/guides/**
+          autogenerate: { directory: 'probstats' },
         },
       ],
     }),
