@@ -27,6 +27,7 @@ export default defineConfig({
     starlight({
       title: 'JHU Docs',
       customCss: ['katex/dist/katex.min.css'],
+      tableOfContents: true,
 
       // Tag all pages in this app as space=JHU for Pagefind filters
       head: [
