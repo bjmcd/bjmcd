@@ -26,7 +26,10 @@ export default defineConfig({
   integrations: [
     starlight({
       title: 'JHU Docs',
-      customCss: ['katex/dist/katex.min.css'],
+      customCss: [
+        'katex/dist/katex.min.css',
+        './src/styles/pdf.css',
+      ],
       tableOfContents: true,
       components: {
         PageTitle: './src/components/overrides/PageTitle.astro',
