@@ -28,7 +28,9 @@ export default defineConfig({
       title: 'JHU Docs',
       customCss: ['katex/dist/katex.min.css'],
       tableOfContents: true,
-
+      components: {
+        PageTitle: './src/components/overrides/PageTitle.astro',
+      },
       // Tag all pages in this app as space=JHU for Pagefind filters
       head: [
         {

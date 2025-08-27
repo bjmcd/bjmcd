@@ -1,0 +1,9 @@
+---
+import Default from '@astrojs/starlight/components/PageTitle.astro';
+import ExportPdfButton from '../ExportPdfButton.astro';
+---
+
+<div class="sl-pagetitle-with-actions" style="display:flex; align-items:center; gap:0.75rem; justify-content:space-between;">
+  <Default><slot /></Default>
+  <ExportPdfButton />
+</div>

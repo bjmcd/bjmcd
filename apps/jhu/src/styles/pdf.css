@@ -1,0 +1,4 @@
+@media print {
+  nav, aside, header, footer, #export-pdf { display: none !important; }
+  main { width: 100% !important; }
+}
