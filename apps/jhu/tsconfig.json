@@ -1,0 +1,14 @@
+{
+  "extends": "astro/tsconfigs/strict", 
+  "compilerOptions": {
+    "baseUrl": ".",             // allow relative imports from root
+    "paths": {
+      "~/*": ["src/*"]          // (optional) if you want ~ alias for src
+    }
+  },
+  "include": [
+    "src",                      // your app’s source
+    "astro.config.mjs",         // astro config
+    "src/types/**/*.d.ts"       // make sure TS picks up custom declarations
+  ]
+}

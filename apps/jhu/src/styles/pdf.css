@@ -1,0 +1,24 @@
+/* Page size & margins */
+@page { size: A4; margin: 16mm; }
+
+/* Hide all chrome in print */
+@media print {
+  /* Common Starlight / site chrome */
+  nav, aside, header, footer,
+  .sl-nav, .sl-sidebar, .sl-breadcrumbs, .sl-toc,
+  .sl-hero, .sl-search, .sl-footer, .sl-previousnext,
+  .sl-marketing, .edit-link, .feedback, .sl-banner,
+  #export-pdf { display: none !important; }
+
+  /* Expand content area */
+  main, article { width: 100% !important; max-width: 100% !important; }
+  body { background: #fff !important; }
+}
+
+/* Keep blocks together and avoid ugly splits */
+pre, code, table, blockquote, img, .no-break {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+p { orphans: 3; widows: 3; }
